@@ -2,7 +2,7 @@ pipeline {
     agent 'any'
       stages{
         stage('vcs') {
-            git branch: 'master',
+            git branch: 'main',
                 url: 'https://github.com/manohargatla/jenkins-k8s-deploy.git'
         }
         stage('build image') {
