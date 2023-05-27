@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
     }
-      stages{
+      stages {
         stage('vcs') {
             steps{
                 git branch: 'main',
@@ -13,13 +13,12 @@ pipeline {
         }
         stage('build image') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh 'docker image build -t nopcommerce:1.0 .'
                 sh 'docker tag nopcommerce:1.0 manugatla/nopcommerce:1.0'
                 sh 'docker push manugatla/nop:latest'
             }
         }
-        stage('deploying application'){
+        stage('deploying application') {
             steps {
                 sh 'kubectl apply -f deployment.yaml'
                 sh 'kubectl get po'
