@@ -1,0 +1,46 @@
+## Jenkins deploy by using deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spc
+  labels:
+    tool: spc-app
+  annotations:
+    kubernetes.io/change-cause: "spc-app"
+spec:
+  minReadySeconds: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      tool: spc-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      name: spc-app-pod
+      labels:
+        tool: spc-app
+    spec:
+      containers:
+        - name: spc-app
+          image: manugatla/spring-petclinic
+          ports:
+            - containerPort: 8080
+---
+## service file for spc-app
+apiVersion: v1
+kind: Service
+metadata:
+  name: spc-svc
+spec:
+  selector:
+    tool: spc-app
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+---
