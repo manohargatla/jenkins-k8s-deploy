@@ -13,7 +13,7 @@ pipeline {
         }
         stage('build image') {
             steps {
-                sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker@8576'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh 'docker image build -t nopcommerce:1.0 .'
                 sh 'docker tag nopcommerce:1.0 manugatla/nopcommerce:1.0'
                 sh 'docker push manugatla/nop:latest'
