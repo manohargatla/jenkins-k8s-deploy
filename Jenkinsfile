@@ -1,5 +1,8 @@
 pipeline {
     agent 'any'
+    environment {
+        DOCKERHUD_CREDENTIALS = credentials('dockerhub-credentials')
+    }
       stages{
         stage('vcs') {
             steps{
@@ -10,6 +13,7 @@ pipeline {
         }
         stage('build image') {
             steps {
+                sh 'docker login -u manugatla --password docker@8576'
                 sh 'docker image build -t nopcommerce:1.0 .'
                 sh 'docker tag nopcommerce:1.0 manugatla/nopcommerce:1.0'
                 sh 'docker push manugatla/nop:latest'
