@@ -1,46 +1,39 @@
-## Jenkins deploy by using deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spc
-  labels:
-    tool: spc-app
-  annotations:
-    kubernetes.io/change-cause: "spc-app"
+  name: nop
 spec:
-  minReadySeconds: 2
+  minReadySeconds: 3
   replicas: 1
   selector:
     matchLabels:
-      tool: spc-app
+      app: nop
   strategy:
-    type: RollingUpdate
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
-      name: spc-app-pod
+      name: nop-pod
       labels:
-        tool: spc-app
+        app: nop
     spec:
       containers:
-        - name: spc-app
-          image: manugatla/spring-petclinic
+        - name: nop-cont
+          image: manugatla/nopcommerce
           ports:
-            - containerPort: 8080
+            - containerPort: 5000
 ---
-## service file for spc-app
+## nop service file
 apiVersion: v1
 kind: Service
 metadata:
-  name: spc-svc
+  name: nop-svc
 spec:
   selector:
-    tool: spc-app
-  type: LoadBalancer
+    app: nop
   ports:
-    - port: 8080
+    - port: 5000
       protocol: TCP
-      targetPort: 8080
----
+      targetPort: 5000

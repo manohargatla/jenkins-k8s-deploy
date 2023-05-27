@@ -1,6 +1,10 @@
 pipeline {
     agent 'any'
       stages{
+        stage('vcs') {
+            git branch: 'master',
+                url: 'https://github.com/manohargatla/jenkins-k8s-deploy.git'
+        }
         stage('build image') {
             steps {
                 sh 'docker image build -t nopcommerce:1.0 .'
