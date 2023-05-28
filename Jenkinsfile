@@ -1,5 +1,5 @@
 pipeline {
-    agent 'any'
+    agent { label 'k8s_docker' }
   
       stages {
         stage('vcs') {
@@ -12,15 +12,15 @@ pipeline {
         stage('build image') {
             steps {
                 sh "docker image build -t spc:${currentBuild.number} . "
-                sh "docker tag spc:2.0 manugatla/spc:${currentBuild.number}"
+                sh "docker tag spc:${currentBuild.number} manugatla/spc:${currentBuild.number}"
                 sh "docker push manugatla/spc:${currentBuild.number}"
             }
         }
         stage('deploying application') {
             steps {
-                sh 'microk8s kubectl apply -f deployment.yaml'
-                sh 'microk8s kubectl get po'
-                sh 'microk8s kubectl get svc'
+                sh 'sudo microk8s kubectl apply -f deployment.yaml'
+                sh 'sudo microk8s kubectl get po'
+                sh 'sudo microk8s kubectl get svc'
             }
         }
     }
