@@ -11,7 +11,7 @@ pipeline {
         }
         stage('build image') {
             steps {
-                sh "docker image build -t spc:${currentBuild.number} "
+                sh "docker image build -t spc:${currentBuild.number} . "
                 sh "docker tag spc:2.0 manugatla/spc:${currentBuild.number}"
                 sh "docker push manugatla/spc:${currentBuild.number}"
             }
