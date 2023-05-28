@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nop
+  name: spc
 spec:
   minReadySeconds: 3
   replicas: 1
   selector:
     matchLabels:
-      app: nop
+      app: spc
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -15,25 +15,25 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      name: nop-pod
+      name: spc-pod
       labels:
-        app: nop
+        app: spc
     spec:
       containers:
-        - name: nop-cont
-          image: manugatla/nopcommerce
+        - name: spc-cont
+          image: manugatla/spc:2.0
           ports:
-            - containerPort: 5000
+            - containerPort: 8080
 ---
-## nop service file
+## spc service file
 apiVersion: v1
 kind: Service
 metadata:
-  name: nop-svc
+  name: spc-svc
 spec:
   selector:
-    app: nop
+    app: spc
   ports:
-    - port: 5000
+    - port: 8080
       protocol: TCP
-      targetPort: 5000
+      targetPort: 8080
