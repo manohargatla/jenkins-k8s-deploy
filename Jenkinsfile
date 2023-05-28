@@ -11,16 +11,16 @@ pipeline {
         }
         stage('build image') {
             steps {
-                sh 'docker image build -t spc:2.0 .'
+                sh 'docker image build -t spc:2.0 '
                 sh 'docker tag spc:2.0 manugatla/spc:2.0'
                 sh 'docker push manugatla/spc:2.0'
             }
         }
         stage('deploying application') {
             steps {
-                sh 'kubectl apply -f deployment.yaml'
-                sh 'kubectl get po'
-                sh 'kubectl get svc'
+                sh 'microk8s kubectl apply -f deployment.yaml'
+                sh ' microk8s kubectl get po'
+                sh 'microk8s kubectl get svc'
             }
         }
     }
