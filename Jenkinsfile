@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh 'docker image build -t nopcommerce:1.0 .'
                 sh 'docker tag nopcommerce:1.0 manugatla/nopcommerce:1.0'
-                sh 'docker push manugatla/nop:latest'
+                sh 'docker push manugatla/nopcommerce:1.0'
             }
         }
         stage('deploying application') {
