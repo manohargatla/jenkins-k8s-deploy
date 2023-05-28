@@ -11,9 +11,9 @@ pipeline {
         }
         stage('build image') {
             steps {
-                sh 'docker image build -t spc:2.0 '
-                sh 'docker tag spc:2.0 manugatla/spc:2.0'
-                sh 'docker push manugatla/spc:2.0'
+                sh "docker image build -t spc:${currentBuild.number} "
+                sh "docker tag spc:2.0 manugatla/spc:${currentBuild.number}"
+                sh "docker push manugatla/spc:${currentBuild.number}"
             }
         }
         stage('deploying application') {
