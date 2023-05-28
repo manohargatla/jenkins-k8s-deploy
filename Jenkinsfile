@@ -1,8 +1,6 @@
 pipeline {
     agent 'any'
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-    }
+  
       stages {
         stage('vcs') {
             steps{
