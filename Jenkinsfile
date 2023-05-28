@@ -18,9 +18,9 @@ pipeline {
         }
         stage('deploying application') {
             steps {
-                sh 'microk8s kubectl apply -f deployment.yaml'
-                sh ' microk8s kubectl get po'
-                sh 'microk8s kubectl get svc'
+                sh 'Microk8s kubectl apply -f deployment.yaml'
+                sh 'Microk8s kubectl get po'
+                sh 'Microk8s kubectl get svc'
             }
         }
     }
