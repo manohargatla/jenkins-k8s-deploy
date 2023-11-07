@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    env:
+      BUILD_ID: ${{ github.run_number }}
+
 
     steps:
     - name: Checkout code
@@ -20,11 +24,11 @@ jobs:
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: Build and Tag Docker Image
-      run: docker build -t new:latest .
+      run: docker build -t spc:latest .
       working-directory: ./Dockerfile
 
     - name: Push Docker Image
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/new:latest
+      run: docker push manugatla/spc:latest
 
     - name: Logout from Docker Hub
       run: docker logout
