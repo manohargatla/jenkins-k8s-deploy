@@ -42,7 +42,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         push: true
-        tags: manugatla/spc:latest
+        tags: manugatla/spc:latest-${{ env.BUILD_ID }}
       env:
         DOCKER_BUILDKIT: 1
     - name: Logout from Docker Hub
