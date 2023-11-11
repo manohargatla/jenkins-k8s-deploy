@@ -20,6 +20,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+    - name: 'Create env.local file'
+      run: |
+        echo "${{ secrets.ENV_FILE }}" >.env.local
 
     - name: Docker meta
       id: docker_meta
