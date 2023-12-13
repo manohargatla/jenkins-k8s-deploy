@@ -19,4 +19,5 @@ jobs:
     - name: Run script file
       run: |
          cd /home/ubuntu/jenkins-k8s-deploy
-         git status
+         docker image build -t spc:2 .
+         docker container run -d -P spc:2
